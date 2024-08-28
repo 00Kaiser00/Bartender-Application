@@ -17,7 +17,7 @@ router.post ('/', async (req, res) => {
           price: price,
         }
       })
-      res.status(200).json(cocktail)
+      res.json(cocktail)
     } 
     catch (error) 
     {
@@ -31,6 +31,7 @@ router.get('/', async (req, res) => {
     try 
     {
         const cocktails = await prisma.cocktail.findMany();
+        console.log(cocktails);
         res.status(200).json(cocktails);
     } 
     catch (error) 
