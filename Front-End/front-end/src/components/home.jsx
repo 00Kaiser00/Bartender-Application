@@ -9,11 +9,16 @@ import { Link } from 'react-router-dom';
 
 export default function Home() {
     return (
-        <Card sx={{ minWidth: 275 }} style={{ backgroundColor: '#d3d3d3'}}>
-            <CardHeader title="Bar Management System" style={{ textAlign: 'center'}}/>
-            <CardContent>
-            <Button component={Link} to="/bar" variant="contained" color="primary"> Menu </Button>
-            </CardContent>    
+        <Card sx={{ minWidth: 275, padding: 20 }}>
+          <CardHeader title="Bar Management System" style={{ textAlign: 'center', fontSize: 24, backgroundColor: '#d3d3d3' }} />
+          <CardContent style={{ textAlign: 'center', backgroundColor: '#d3d3d3' }}>
+            <Button component={Link} to="/bar" variant="contained" color="primary" style={{ margin: 10 }}>
+              Menu
+            </Button>
+            <Button component={Link} to="/bar/queue" variant="contained" color="primary" style={{ margin: 10 }}>
+              Order Queue
+            </Button>
+          </CardContent>
         </Card>
-    );
-}
+      );
+    }

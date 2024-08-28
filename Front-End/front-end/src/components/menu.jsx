@@ -3,6 +3,8 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { CardHeader } from "@mui/material";
 import { CardActions } from "@material-ui/core";
+import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
 export default function Menu() {
     const [cocktails, setCocktails] = useState([]);
@@ -29,14 +31,15 @@ export default function Menu() {
     return (
         <Card sx={{ minWidth: 275 }} style={{ backgroundColor: '#d3d3d3'}}>
             <CardHeader title="Menu" style={{ textAlign: 'center'}}/>
-            <CardContent>
+            <CardContent style={{ textAlign: 'center'}}>
             {cocktails.map(cocktail => (
             <div key={cocktail.id}>
-                <h2 style={{ textAlign: 'center'}}>{cocktail.name}</h2>
-                <p style={{ textAlign: 'center'}}>{cocktail.desc}</p>
-                <p style={{ textAlign: 'center'}}>Price: {cocktail.price}</p>
+                <h2>{cocktail.name}</h2>
+                <p>{cocktail.desc}</p>
+                <p>Price: {cocktail.price}</p>
             </div>
         ))}
+            <Button component={Link} to="/bar/order" variant="contained" color="primary"> Order </Button>
             </CardContent>
         </Card>
     );
