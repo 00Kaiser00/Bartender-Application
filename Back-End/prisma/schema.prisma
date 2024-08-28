@@ -13,23 +13,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Menu {
-  id       Int     @id @default(autoincrement())
-  name     String
-  cocktails Cocktail[]
-}
-
 model Cocktail {
   id         Int     @id @default(autoincrement())
   name       String
   desc       String
   price      Float
-  menuId     Int
-  menu       Menu    @relation(fields: [menuId], references: [id])
 }
 
 model Order {
   id Int @id @default(autoincrement())
-  cockTailId Int
+  cocktailName String
   customerName String
 }

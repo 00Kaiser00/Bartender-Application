@@ -5,28 +5,6 @@ import { PrismaClient } from "@prisma/client";
 const router = Router();
 const prisma = new PrismaClient();
 
-let menu;
-
-async function initMenu() {
-  menu = await prisma.menu.create({
-    data: {
-      name: "Cocktails",
-    }
-  });
-}
-
-initMenu();
-
-//Display Menu
-router.get ('/', async (req, res) => {
-    const menu = await prisma.menu.findMany({
-        include: {
-          cocktails: true,
-        },
-      });
-      res.status(200).json(menu);
-})
-
 //Add Cocktail
 router.post ('/', async (req, res) => {
     try 
@@ -37,7 +15,6 @@ router.post ('/', async (req, res) => {
           name: req.body.name,
           desc: req.body.desc,
           price: price,
-          menuId: menu.id
         }
       })
       res.status(200).json(cocktail)
@@ -49,6 +26,51 @@ router.post ('/', async (req, res) => {
     }
   })
 
+//Display Cocktails
+router.get('/', async (req, res) => {
+    try 
+    {
+        const cocktails = await prisma.cocktail.findMany();
+        res.status(200).json(cocktails);
+    } 
+    catch (error) 
+    {
+        console.error(error)
+        res.status(500).json({ message: 'Internal Server Error' })
+    }
+})
 
+//Add Order
+router.post('/order', async (req, res) => {
+    try 
+    {
+        const order = await prisma.order.create({
+            data: {
+                cocktailName: req.body.cocktailName,
+                customerName: req.body.customerName
+            }
+        })
+        res.status(200).json(order)
+    } 
+    catch (error) 
+    {
+        console.error(error)
+        res.status(500).json({ message: 'Internal Server Error' })
+    }
+})
+
+//Display Orders
+router.get('/order', async (req, res) => {
+    try 
+    {
+        const orders = await prisma.order.findMany();
+        res.status(200).json(orders);
+    } 
+    catch (error) 
+    {
+        console.error(error)
+        res.status(500).json({ message: 'Internal Server Error' })
+    }
+})
 
 export default router;
